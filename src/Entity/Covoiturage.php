@@ -52,6 +52,17 @@ class Covoiturage
     #[ORM\JoinColumn(nullable: false)]
     private ?Voiture $voiture = null;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'covoiturage')]
+    private Collection $voyageurs;
+
+    public function __construct()
+    {
+        $this->voyageurs = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +184,33 @@ class Covoiturage
     public function setVoiture(?Voiture $voiture): static
     {
         $this->voiture = $voiture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getVoyageurs(): Collection
+    {
+        return $this->voyageurs;
+    }
+
+    public function addVoyageur(User $voyageur): static
+    {
+        if (!$this->voyageurs->contains($voyageur)) {
+            $this->voyageurs->add($voyageur);
+            $voyageur->addCovoiturage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoyageur(User $voyageur): static
+    {
+        if ($this->voyageurs->removeElement($voyageur)) {
+            $voyageur->removeCovoiturage($this);
+        }
 
         return $this;
     }
