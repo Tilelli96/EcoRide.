@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\AvisRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AvisRepository::class)]
 class Avis
@@ -14,9 +16,11 @@ class Avis
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Charset('UTF-8')]
     private ?string $commentaire = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero]
     private ?int $note = null;
 
     #[ORM\Column(length: 50)]
