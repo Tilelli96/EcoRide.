@@ -55,8 +55,21 @@ class Covoiturage
     /**
      * @var Collection<int, User>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'covoiturage')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'covoiturages')]
+    #[ORM\JoinTable(
+        name: "covoiturage_voyageurs",
+        joinColumns: [
+            new ORM\JoinColumn(name: "covoiturage_id", referencedColumnName: "id")
+        ],
+        inverseJoinColumns: [
+            new ORM\JoinColumn(name: "user_id", referencedColumnName: "id")
+        ]
+    )]
     private Collection $voyageurs;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -211,6 +224,18 @@ class Covoiturage
         if ($this->voyageurs->removeElement($voyageur)) {
             $voyageur->removeCovoiturage($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
