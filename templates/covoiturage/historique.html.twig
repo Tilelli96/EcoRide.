@@ -41,7 +41,7 @@
                             <h5 class="card-title text-light">{{covoiturage.getLieuArrivee()}}</h5>
                         </div>
                         <div class="d-md-flex justify-content-between">
-                            <h2 class="card-text text-light">{{covoiturage.getPrixPersonne()}}Crédit</h2>
+                            <h2 class="card-text text-light">{{covoiturage.getPrixPersonne()}} Crédit</h2>
                             <div class="d-flex">
                               {% if covoiturage.getStatut() == "à venir" %}
                                 <div class="m-2 rounded-fill">
@@ -93,7 +93,7 @@
                                 <h5 class="card-title text-light">{{passagerCovoiturage.getLieuArrivee()}}</h5>
                             </div>
                             <div class="d-md-flex justify-content-between">
-                                <h2 class="card-text text-light">{{passagerCovoiturage.getPrixPersonne()}}Crédits</h2>
+                                <h2 class="card-text text-light">{{passagerCovoiturage.getPrixPersonne()}} Crédits</h2>
                                 {% if passagerCovoiturage.getStatut() == 'à venir' %}
                                 <div class="rounded-fill m-3 d-flex">
                                     <p class="text-light p-2 me-5">à venir</p>

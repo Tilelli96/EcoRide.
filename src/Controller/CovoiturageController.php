@@ -51,4 +51,28 @@ final class CovoiturageController extends AbstractController
             'passagerCovoiturages' => $passagerCovoiturages
         ]);
     }
+
+    #[Route('/{id}/participer', name: 'covoiturage_participer')]
+    public function participate(Covoiturage $covoiturage, EntityManagerInterface $em){
+        if(($covoiturage->getNbPlaces() - count($covoiturage->getVoyageurs())) >= 0){
+            if($this->getUser()->getCredit() >= $covoiturage->getPrixPersonne()){
+                $covoiturage->addVoyageurs($this->getUser());
+                $em->persist($covoiturage);
+                $em->flush();
+                $em->persist($this->getUser());
+                $em->flush();
+                $this->addFlash('success', 'Votre participation a bien été enregistrée');
+                return $this->redirectToRoute('app_home');
+            }else{
+                $this->addFlash('success', 'Credit insuffisant');
+                return $this->redirectToRoute('app_home');  
+            }
+        }else{
+            $this->addFlash('success', 'pas de places disponible');
+            return $this->redirectToRoute('app_home');
+        
+        }
+        $this->addFlash('success', 'Désolé votre participation n\'a pas pu etre enregistrée');
+        return $this->redirectToRoute('app_home');
+    }
 }
