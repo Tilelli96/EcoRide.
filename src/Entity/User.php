@@ -73,6 +73,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Covoiturage::class, inversedBy: 'voyageurs', cascade: ["remove"])]
     private Collection $covoiturages;
 
+    #[ORM\Column]
+    private bool $isVerified = false;
+
     public function __construct()
     {
         $this->covoiturage = new ArrayCollection();
@@ -281,6 +284,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCovoiturage(Covoiturage $covoiturage): static
     {
         $this->covoiturages->removeElement($covoiturage);
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

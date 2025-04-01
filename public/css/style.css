@@ -26,7 +26,8 @@ li {
     border: #80917D solid;
 }
 .register {
-    background-color: rgb(128, 145, 125, 0.5);
+    background-color: rgb(128, 145, 125, 0.35);
+    max-width: 500px;
 }
 .titre {
     color: #80917D;
