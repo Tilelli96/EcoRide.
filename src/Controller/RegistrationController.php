@@ -81,4 +81,16 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_register');
     }
+
+    #[Route('/user/photo/{id}', name: 'user_photo')]
+    public function showPhoto(User $user, EntityManagerInterface $entityManager, RequestStack $requestStack): Response
+    {
+        if (!$user || !$user->getPhoto()) {
+            $defaultImagePath = $requestStack->getCurrentRequest()->getSchemeAndHttpHost() . '/media/person.svg';
+            return $this->redirect($defaultImagePath);
+        }
+        return new Response(stream_get_contents($user->getPhoto()), 200, [
+            'Content-Type' => 'image/jpeg'
+        ]);
+    }
 }
