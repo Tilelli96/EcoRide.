@@ -98,4 +98,12 @@ final class CovoiturageController extends AbstractController
             return $this->redirectToRoute('app_home');
         };
     }
+
+    #[Route('/{id}/enCours',)]
+    public function progress(Covoiturage $covoiturage, EntityManagerInterface $em){
+        $covoiturage->setStatut('en cours');
+        $em->flush();
+        $this->addFlash('success', 'votre covoiturage est en cours');
+        return $this->redirectToRoute('app_search');
+    }
 }
