@@ -75,4 +75,27 @@ final class CovoiturageController extends AbstractController
         $this->addFlash('success', 'Désolé votre participation n\'a pas pu etre enregistrée');
         return $this->redirectToRoute('app_home');
     }
+
+    #[Route('/{id}/supprimer', name: 'covoiturage_supprimer')]
+    public function remove(Covoiturage $covoiturage, EntitymanagerInterface $em, MailerInterface $mailer){
+        if($covoiturage->getUser() === $this->getUser()){
+            foreach($covoiturage->getVoyageurs() as $user){
+                $email = (new Email())
+                            ->from('haidou.tounsia@gmail.com')
+                            ->to($user->getEmail())
+                            ->subject('Voyage annulé')
+                            ->text('votre covoiturage a été annulé');
+                $mailer->send($email);
+            }
+            $em->remove($covoiturage);
+            $em->flush();
+            $this->addFlash('success', 'votre covoiturage a bien été supprimé');
+            return $this->redirectToRoute('app_home');
+        }else{
+            $covoiturage->removeVoyageur($this->getUser());
+            $em->flush();
+            $this->addFlash('success', 'votre participation a bien été annulée');
+            return $this->redirectToRoute('app_home');
+        };
+    }
 }
