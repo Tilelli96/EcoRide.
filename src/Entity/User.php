@@ -272,7 +272,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->covoiturages;
     }
 
-    public function setCovoiturage(Covoiturage $covoiturage): static
+    public function setCovoiturages(Covoiturage $covoiturage): static
     {
         if (!$this->covoiturages->contains($covoiturage)) {
             $this->covoiturages->add($covoiturage);
