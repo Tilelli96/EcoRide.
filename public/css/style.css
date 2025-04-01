@@ -1,0 +1,77 @@
+* {padding: 0;margin: 0;}
+body {
+    background-color: #AEBA8A;
+    margin: 0;
+}
+footer {
+    background-image: url('../media/img_feuille.jpg');
+    background-size: 100%;
+    margin-top: auto;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+nav {
+    background-color: #80917D;
+}
+li {
+    padding-inline: 30px;
+}
+.navbartoggler {
+    border: 0em;
+}
+.btn {
+    background-color: #80917D;
+    border: #80917D solid;
+}
+.register {
+    background-color: rgb(128, 145, 125, 0.5);
+}
+.titre {
+    color: #80917D;
+}
+.description {
+    margin-inline: 80px;
+}
+.slogan {
+    font-family: "Tangerine", sans-serif;
+    font-size: 40px;
+}
+@keyframes anime {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.btn-anime {
+    cursor: pointer;
+    animation: anime 1.5s infinite ease-in-out;
+}
+@media (max-width: 990px) {
+    .reverse {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        width: 60%;
+    }
+    .icone {
+        margin-top: 20px;
+        align-self: self-start;
+    }
+    .navbar-brand {
+        align-self: self-start;
+    }
+    footer {
+        margin-top: auto;
+    }
+    body html {
+        background-color: #AEBA8A;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+    .presentation {
+        margin: 20px;
+        width: 100%;
+    }
+  }
