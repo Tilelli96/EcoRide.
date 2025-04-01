@@ -38,6 +38,15 @@ li {
     font-family: "Tangerine", sans-serif;
     font-size: 40px;
 }
+@keyframes anime {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.btn-anime {
+    cursor: pointer;
+    animation: anime 1.5s infinite ease-in-out;
+}
 @media (max-width: 990px) {
     .reverse {
         display: flex;
