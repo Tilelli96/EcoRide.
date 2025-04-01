@@ -1,0 +1,28 @@
+.search {
+    background-image: url('../media/img_route.jpg');
+    background-size:cover;
+    padding: 30px;
+}
+.adresse {
+    display: flex ;
+    justify-content: space-around;
+}
+.covoiturage {
+    background-color: #CA763B;
+}
+.fontVert {
+    color :#134B42 ;
+}
+.detail {
+    border-radius: 40px;
+}
+.participer {
+    background-color: #134B42;
+    border: none;
+    border-radius: 40px;
+}
+@media (max-width: 990px) {
+    .adresse {
+        display : grid;
+    }
+}

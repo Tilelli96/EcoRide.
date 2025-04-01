@@ -40,4 +40,15 @@ final class CovoiturageController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/historique', name: 'historique_covoiturage')]
+    public function show(CovoiturageRepository $covoiturage){
+        $user = $this->getUser();
+        $covoiturages = $covoiturage->findByHistoricalUser($user);
+        $passagerCovoiturages = $covoiturage->findByPassager($user);
+        return $this->render('covoiturage/historique.html.twig', [
+            'covoiturages' => $covoiturages,
+            'passagerCovoiturages' => $passagerCovoiturages
+        ]);
+    }
 }
