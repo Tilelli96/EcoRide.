@@ -104,6 +104,22 @@ final class CovoiturageController extends AbstractController
         $covoiturage->setStatut('en cours');
         $em->flush();
         $this->addFlash('success', 'votre covoiturage est en cours');
-        return $this->redirectToRoute('app_search');
+        return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/{id}/passe')]
+    public function passed(Covoiturage $covoiturage, EntityManagerInterface $em, MailerInterface $mailer){
+        $covoiturage->setStatut('passé');
+        $em->flush();
+        foreach($covoiturage->getVoyageurs() as $user){
+            $email = (new Email())
+                        ->from('haidou.tounsia@gmail.com')
+                        ->to($user->getEmail())
+                        ->subject('Voyage annulé')
+                        ->text('Merci de bien vouloir vous rendre à votre espace EcoRide afin de valider votre covoiturage');
+            $mailer->send($email);
+        }
+        $this->addFlash('success', 'Vous etes arrivés à destination');
+        return $this->redirectToRoute('app_home');
     }
 }
