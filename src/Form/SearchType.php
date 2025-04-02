@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class SearchType extends AbstractType
 {
@@ -17,13 +19,12 @@ class SearchType extends AbstractType
         $builder
             ->add('adresse_depart')
             ->add('adresse_arrivee')
-            ->add('Date', null, [
-                'widget' => 'single_text',
+            ->add('Date', DateType::class, [
                 'constraints' => [
                     new Assert\GreaterThanOrEqual('today')
                 ]
             ])
-            ->add('nb_personnes', null,[
+            ->add('nb_personnes',  IntegerType::class,[
                 'constraints' => [
                     new Assert\GreaterThanOrEqual([
                         'value' => 0,

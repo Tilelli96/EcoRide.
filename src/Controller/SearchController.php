@@ -2,16 +2,21 @@
 
 namespace App\Controller;
 
+use App\Form\SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CovoiturageRepository;
+use App\Entity\Covoiturage;
 
 final class SearchController extends AbstractController
 {
     #[Route('/search', name: 'app_search')]
     public function search(Request $request,CovoiturageRepository $covoiturageRepository, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(SearchType::class, $search);
+        $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
@@ -20,7 +25,6 @@ final class SearchController extends AbstractController
                 $alternatives = $covoiturageRepository->FindByOtherDate($search);
                 return $this->render('search/noresult.html.twig', [
                     'alternatives' => $alternatives,
-                    'search' => $search,
                     'form' => $form
                 ]);
             } else {

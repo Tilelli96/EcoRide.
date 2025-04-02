@@ -1,11 +1,7 @@
 .search {
     background-image: url('../media/img_route.jpg');
-    background-size:cover;
+    background-size:100%;
     padding: 30px;
-}
-.adresse {
-    display: flex ;
-    justify-content: space-around;
 }
 .covoiturage {
     background-color: #CA763B;
