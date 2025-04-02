@@ -39,4 +39,12 @@ final class SearchController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('result/{id}/details', name: 'app_details')]
+    public function details(Covoiturage $covoiturage){
+        
+        return $this->render('/covoiturage/details.html.twig', [
+            'covoiturage' => $covoiturage
+        ]);
+    }
 }
