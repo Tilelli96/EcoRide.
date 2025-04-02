@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Covoiturage>
      */
-    #[ORM\ManyToMany(targetEntity: Covoiturage::class, inversedBy: 'voyageurs', cascade: ["remove"])]
+    #[ORM\ManyToMany(targetEntity: Covoiturage::class, mappedBy: 'voyageurs', cascade: ["remove"])]
     private Collection $covoiturages;
 
     #[ORM\Column]
@@ -272,7 +272,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->covoiturages;
     }
 
-    public function setCovoiturage(Covoiturage $covoiturage): static
+    public function setCovoiturages(Covoiturage $covoiturage): static
     {
         if (!$this->covoiturages->contains($covoiturage)) {
             $this->covoiturages->add($covoiturage);

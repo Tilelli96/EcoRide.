@@ -209,11 +209,11 @@ class Covoiturage
         return $this->voyageurs;
     }
 
-    public function addVoyageur(User $voyageur): static
+    public function addVoyageurs(User $voyageur): static
     {
         if (!$this->voyageurs->contains($voyageur)) {
             $this->voyageurs->add($voyageur);
-            $voyageur->addCovoiturage($this);
+            $voyageur->setCovoiturages($this);
         }
 
         return $this;
