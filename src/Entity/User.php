@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Covoiturage>
      */
-    #[ORM\ManyToMany(targetEntity: Covoiturage::class, inversedBy: 'voyageurs', cascade: ["remove"])]
+    #[ORM\ManyToMany(targetEntity: Covoiturage::class, mappedBy: 'voyageurs', cascade: ["remove"])]
     private Collection $covoiturages;
 
     #[ORM\Column]

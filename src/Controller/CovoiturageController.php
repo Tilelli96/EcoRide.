@@ -122,4 +122,16 @@ final class CovoiturageController extends AbstractController
         $this->addFlash('success', 'Vous etes arrivés à destination');
         return $this->redirectToRoute('app_home');
     }
+
+    #[Route('/{id_C}/{id_U}/valider')]
+    public function validate(int $id_C, int $id_U, CovoiturageRepository $co, UserRepository $us, EntitymanagerInterface $em): Response
+    {
+        $covoiturage = $co->findOneById($id_C);
+        $user = $us->findOneById($id_U);
+        $user->setCredit($user->getCredit() - $covoiturage->getPrixPersonne());
+        $covoiturage->getUser()->setCredit($covoiturage->getUser()->getCredit() + ($covoiturage->getPrixPersonne() - 2));
+        $em->flush();
+        $this->addFlash('success', 'Votre validation a bien été enregistrée');
+        return $this->redirectToRoute('app_home');
+    }
 }
