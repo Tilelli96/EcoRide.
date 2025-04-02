@@ -13,7 +13,7 @@ use App\Entity\Covoiturage;
 
 final class SearchController extends AbstractController
 {
-    #[Route('/search', name: 'app_search')]
+    #[Route('/search', name: 'search', methods: ['POST'])]
     public function search(Request $request,CovoiturageRepository $covoiturageRepository, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(SearchType::class);
@@ -22,10 +22,10 @@ final class SearchController extends AbstractController
             $data = $form->getData();
             $covoiturages = $covoiturageRepository->findBySearch($data);
             if((empty($covoiturages) === true)){
-                $alternatives = $covoiturageRepository->FindByOtherDate($search);
+                $alternatives = $covoiturageRepository->FindByOtherDate($data);
                 return $this->render('search/noresult.html.twig', [
-                    'alternatives' => $alternatives,
-                    'form' => $form
+                    'form' => $form,
+                    'alternatives' => $alternatives
                 ]);
             } else {
                 return $this->render('search/result.html.twig', [

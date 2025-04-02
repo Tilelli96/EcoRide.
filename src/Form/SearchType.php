@@ -19,21 +19,8 @@ class SearchType extends AbstractType
         $builder
             ->add('adresse_depart')
             ->add('adresse_arrivee')
-            ->add('Date', DateType::class, [
-                'constraints' => [
-                    new Assert\GreaterThanOrEqual('today')
-                ]
-            ])
-            ->add('nb_personnes',  IntegerType::class,[
-                'constraints' => [
-                    new Assert\GreaterThanOrEqual([
-                        'value' => 0,
-                    ]),
-                    new Assert\LessThanOrEqual([
-                        'value' => 5,
-                    ])
-                ]
-            ])
+            ->add('Date', DateType::class)
+            ->add('nb_personnes',  IntegerType::class)
         ;
     }
 
@@ -41,6 +28,7 @@ class SearchType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => null,
+        
         ]);
     }
 }

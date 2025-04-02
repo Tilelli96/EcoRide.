@@ -27,7 +27,7 @@ class CovoiturageRepository extends ServiceEntityRepository
                 ->andWhere('c.date_depart = :Ddepart')
                 ->andWhere('c.statut = :Statut')
                 ->setParameter('Ldepart', $search['adresse_depart'])
-                ->setParameter('Ddepart', $search['date'])
+                ->setParameter('Ddepart', $search['Date'])
                 ->setParameter('arrivee', $search['adresse_arrivee'])
                 ->setParameter('Statut', 'à venir')
                 ->getQuery()
@@ -40,7 +40,7 @@ class CovoiturageRepository extends ServiceEntityRepository
                 ->andWhere('c.lieu_depart = :Ldepart')
                 ->andWhere('c.statut = :Statut')
                 ->setParameter('Ldepart', $search['adresse_depart'])
-                ->setParameter('arrivee', $search['adresse_arrive'])
+                ->setParameter('arrivee', $search['adresse_arrivee'])
                 ->setParameter('Statut', 'à venir')
                 ->getQuery()
                 ->getResult();

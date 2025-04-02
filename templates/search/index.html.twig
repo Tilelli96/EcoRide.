@@ -3,10 +3,9 @@
 {% endfor %}
 
 {{ form_errors(form) }}
-{{ form_start(form, {'action': path('app_search'), 'method': 'POST'}) }}
+{{ form_start(form, {'action': path('search'), 'method': 'POST', 'attr': {'data-turbo': 'false'}}) }}
 
 <div class="search">
-    {{ form_start(form, {'attr': {'data-turbo': 'false'}}) }}
     <div class="bg-light bg-opacity-50 p-5 mx-auto mb-4 rounded-5" style="max-width: 900px;">
         <h1 class="slogan text-center fontVert">Roulez ensemble, économisez, partagez !</h1>
         <div class="d-md-flex justify-content-around">
