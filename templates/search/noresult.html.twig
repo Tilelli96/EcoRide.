@@ -4,7 +4,9 @@
 
 {% block body %}
     {% include "/search/index.html.twig" %}
-    <h5 class="text-center text-light m-5">Désolé il n'y a pas de départ à cette date.<br>Voici les premiers covoiturages les plus proches pour votre voyage </h5>
+    {% include "/search/filtres.html.twig" %}
+
+    <h5 class="text-center text-light">Désolé il n'y a pas de départ à cette date.<br>Voici les premiers covoiturages les plus proches pour votre voyage </h5>
     <p class="text-light text-center">{{ alternatives|length }} alternatives trouvés.</p>
     {% for alternative in alternatives %}
     <div class="card rounded-pill covoiturage mt-3 mb-3 ms-5 me-5">

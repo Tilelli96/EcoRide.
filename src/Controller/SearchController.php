@@ -13,7 +13,7 @@ use App\Entity\Covoiturage;
 
 final class SearchController extends AbstractController
 {
-    #[Route('/search', name: 'search', methods: ['POST'])]
+    #[Route('/search', name: 'search')]
     public function search(Request $request,CovoiturageRepository $covoiturageRepository, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(SearchType::class);

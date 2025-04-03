@@ -18,6 +18,10 @@
     border: none;
     border-radius: 40px;
 }
+.form-check-input:checked {
+    background-color:#134B42;
+    border-color: #134B42;
+}
 @media (max-width: 990px) {
     .adresse {
         display : grid;

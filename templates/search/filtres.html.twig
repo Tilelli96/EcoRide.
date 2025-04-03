@@ -1,0 +1,42 @@
+<a class="btn text-center detail m-3" data-bs-toggle="collapse" href="#filtres" role="button" aria-expanded="false" aria-controls="filtre">
+    <div class="d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-filter-square" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+            <path d="M6 11.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+        </svg>
+        <span class="text-light ms-1">Filtres</span>
+    </div>
+</a>
+<div class="collapse" id="filtres">
+    <div class="card detail rounded-pill p-2">
+        <div class="card-body m-4">
+            <form id="filter">
+                <div class="d-md-flex justify-content-center align-items-center m-3">
+                    <div class="form-check m-2 p-3 text-light text-center">
+                        <h4>Aspect ecologique</h4>
+                        <div class="d-flex justify-content-center">
+                            <input class="form-check-input" type="checkbox" name="aspect ecologique" id="ecolo" value="ecologique" >
+                            <label class="form-check-label" for="ecolo">Trajets ecologiques</label>
+                        </div>
+                    </div>
+                    <div class="m-2 text-light p-3 text-center">
+                        <label for="maxPrix" class="form-label ms-1"><h4>Prix maximum</h4></label>
+                        <input type="number" class="form-control rounded-pill mx-auto" id="maxPrix" placeholder="€" name="prix maximun" style="width: 150px;">
+                    </div>
+                    <div class="m-2 text-light p-3 text-center">
+                        <label for="maxDuree" class="form-label ms-1"><h4>Durée maximum</h4></label>
+                        <input type="number" class="form-control rounded-pill mx-auto" id="maxDuree" placeholder="min" name="duree maximun" style="width: 150px;">
+                    </div>
+                    <div class="m-2 text-light p-3 text-center">
+                        <label for="minNote" class="form-label ms-1"><h4>Note minimum</h4></label>
+                        <input type="number" class="form-control rounded-pill mx-auto" id="minNote" name="note minimum" style="width: 150px;">
+                    </div>
+                </div>
+
+                <div class="m-1 p-3 text-center">
+                    <button type="submit" class="btn col-3 text-light" style="border-radius: 10px;">Afficher les covoiturage</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
