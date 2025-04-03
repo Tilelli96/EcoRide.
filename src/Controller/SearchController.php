@@ -18,8 +18,8 @@ final class SearchController extends AbstractController
     {
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
+        $data = $request->query->all();
+        if(!empty($data)){
             $covoiturages = $covoiturageRepository->findBySearch($data);
             if((empty($covoiturages) === true)){
                 $alternatives = $covoiturageRepository->FindByOtherDate($data);
