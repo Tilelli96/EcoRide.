@@ -6,7 +6,7 @@
     <p class="text-light text-center">{{ avis|length }} avis trouvés.</p>
     {% for avi in avis %}
     <h4 class="text-center text-light">{{avi.getUser().getEmail()}}</h4>
-    <div class="register m-5 p-2 detail">
+    <div class="detail m-5 p-2 detail">
         <div class="text-light m-2 ms-5">
             <img class="p-3 rounded-circle bg-success opacity-50" src="/media/person.svg" alt="image utilisateur">
             {{avi.createdBy.getEmail()}}

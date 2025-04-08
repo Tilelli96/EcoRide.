@@ -30,4 +30,22 @@ final class EmployerController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/valider')]
+    public function validate(Avis $avis, EntityManagerInterface $em): Response
+    {
+        $avis->setStatut('validé');
+        $em->flush();
+        $this->addFlash('success', 'L\'avis a bien été validé');
+        return $this->redirectToRoute('employer_avis');
+    }
+
+    #[Route('/{id}/supprimer')]
+    public function remove(Avis $avis, EntityManagerInterface $em): Response
+    {
+        $em->remove($avis);
+        $em->flush();
+        $this->addFlash('success', 'L\'avis a bien été supprimé');
+        return $this->redirectToRoute('employer_avis');
+    }
+
 }
