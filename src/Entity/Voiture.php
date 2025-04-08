@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\VoitureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
 class Voiture
@@ -12,6 +13,7 @@ class Voiture
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['covoiturage:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
@@ -24,6 +26,7 @@ class Voiture
     private ?string $immatriculation = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['covoiturage:read'])]
     private ?string $energie = null;
 
     #[ORM\Column(length: 50)]

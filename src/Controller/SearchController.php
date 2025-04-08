@@ -10,28 +10,35 @@ use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CovoiturageRepository;
 use App\Entity\Covoiturage;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class SearchController extends AbstractController
 {
     #[Route('/search', name: 'search')]
-    public function search(Request $request,CovoiturageRepository $covoiturageRepository, EntityManagerInterface $em): Response
+    public function search(Request $request,CovoiturageRepository $covoiturageRepository, EntityManagerInterface $em, SerializerInterface $serializer): Response
     {
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
         $data = $request->query->all();
         if(!empty($data)){
             $covoiturages = $covoiturageRepository->findBySearch($data);
-            if((empty($covoiturages) === true)){
+            $covoituragesJson = $serializer->serialize($covoiturages, 'json', ['groups' => 'covoiturage:read']);
+            $filtresHtml = $this->renderView('search/filtres.html.twig');
+           if((empty($covoiturages) === true)){
                 $alternatives = $covoiturageRepository->FindByOtherDate($data);
-                return $this->render('search/noresult.html.twig', [
-                    'form' => $form,
-                    'alternatives' => $alternatives
+                $alternativesJson = $serializer->serialize($alternatives, 'json', ['groups' => 'covoiturage:read']);
+                return new JsonResponse ([
+                    'alternatives' => json_decode($alternativesJson),
+                    'covoiturages' => [],
+                    'filtresHtml' => $filtresHtml
                 ]);
             } else {
-                return $this->render('search/result.html.twig', [
-                    'covoiturages' => $covoiturages,
-                    'form' => $form
-                 ]);
+                return new JsonResponse ([
+                    'covoiturages' => json_decode($covoituragesJson),
+                    'alternatives' => [],
+                    'filtresHtml' => $filtresHtml
+                ]);
             }
             
         }

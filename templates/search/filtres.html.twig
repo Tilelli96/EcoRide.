@@ -15,7 +15,7 @@
                     <div class="form-check m-2 p-3 text-light text-center">
                         <h4>Aspect ecologique</h4>
                         <div class="d-flex justify-content-center">
-                            <input class="form-check-input" type="checkbox" name="aspect ecologique" id="ecolo" value="ecologique" >
+                            <input class="form-check-input" type="checkbox" name="aspect ecologique" id="ecolo">
                             <label class="form-check-label" for="ecolo">Trajets ecologiques</label>
                         </div>
                     </div>
@@ -34,9 +34,12 @@
                 </div>
 
                 <div class="m-1 p-3 text-center">
-                    <button type="submit" class="btn col-3 text-light" style="border-radius: 10px;">Afficher les covoiturage</button>
+                    <button type="button" id="btnFilter" class="btn col-3 text-light" style="border-radius: 10px;">Afficher les covoiturage</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+{% block javascripts %}
+<script src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
