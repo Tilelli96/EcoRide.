@@ -13,7 +13,7 @@ use App\Entity\Covoiturage;
 use App\Repository\UserRepository;
 use App\Entity\User;
 
-#[Route('/employe/litiges')]
+#[Route('/employer/litiges')]
 final class LitigeController extends AbstractController
 {
     #[Route('/index', name: 'app_litige')]
@@ -26,7 +26,7 @@ final class LitigeController extends AbstractController
     }
 
     #[Route('/{id}/annuler')]
-    public function cancel(Litig $litige, EntityManagerInterface $em): Response
+    public function cancel(EntityManagerInterface $em, Litige $litige): Response
     {
         $em->remove($litige);
         $em->flush();
@@ -38,7 +38,7 @@ final class LitigeController extends AbstractController
     public function validate(EntitymanagerInterface $em, Litige $litige): Response
     {
         $litige->getUser()->setCredit($litige->getUser()->getCredit() - $litige->getCovoiturage()->getPrixPersonne());
-        $litige->getCovoiturage()->getUserId()->setCredit($litige->getCovoiturage()->getUserId()->getCredit() + ($litige->getCovoiturage()->getPrixPersonne() - 2));
+        $litige->getCovoiturage()->getUser()->setCredit($litige->getCovoiturage()->getUser()->getCredit() + ($litige->getCovoiturage()->getPrixPersonne() - 2));
         $em->remove($litige);
         $em->flush();
         $this->addFlash('success', 'Votre validation a bien été enregistrée');

@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'employer/index.html.twig' %}
 
 {% block title %}Litiges{% endblock %}
 
 {% block body %}
+    <p class="text-light text-center">{{ litiges|length }} litiges trouvés.</p>
     {% for litige in litiges %}
         <div class="detail p-3 m-5 rounded-fill d-flex justify-content-around">
             <div>
