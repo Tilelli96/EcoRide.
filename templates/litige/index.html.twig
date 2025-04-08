@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Litiges{% endblock %}
+
+{% block body %}
+    {% for litige in litiges %}
+        <div class="detail p-3 m-5 rounded-fill d-flex justify-content-around">
+            <div>
+                <h4 class="text-light text-center">
+                    Covoiturage : {{litige.getCovoiturage().getId()}}
+                </h4>
+            </div>
+            <div>
+                <h4 class="text-light text-center">
+                    Créé par : 
+                </h4>
+                <div class="text-light text-center">
+                    {{litige.user.email}}
+                </div>
+            </div>
+            <div>
+                <h4 class="text-light text-center">
+                    Chauffeur : 
+                </h4>
+                <div class="text-light text-center">
+                    {{litige.getCovoiturage().getUser().getEmail()}}
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-center">
+                <div class="m-2 rounded-fill">
+                    <a href="/employe/litiges/{{litige.getId()}}/valider" alt="lien pour valider" class="btn participer p-2 text-light">Valider</a>
+                </div>
+                <div class="m-2 rounded-fill">
+                    <a href="/employer/litiges/{{litige.getId()}}/annuler" alt="lien pour annuler" class="btn participer bg-danger p-2 text-light">Annuler</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
