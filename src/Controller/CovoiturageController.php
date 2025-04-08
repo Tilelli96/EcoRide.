@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Covoiturage;
 use App\Form\CovoiturageType;
 use App\Entity\User;
+use App\Entity\Litige;
 use App\Repository\VoitureRepository;
 use App\Repository\CovoiturageRepository;
 use App\Repository\UserRepository;
@@ -135,7 +136,7 @@ final class CovoiturageController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    #[Route('/{id_C}/{id_U}/ajouter')]
+    #[Route('/{id_C}/{id_U}/ajouterLitige')]
     public function add(int $id_C, int $id_U, CovoiturageRepository $co, UserRepository $us, EntityManagerInterface $em): Response
     {
         $covoiturage = $co->findOneById($id_C);

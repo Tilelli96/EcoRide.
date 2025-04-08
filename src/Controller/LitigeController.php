@@ -13,13 +13,15 @@ use App\Entity\Covoiturage;
 use App\Repository\UserRepository;
 use App\Entity\User;
 
+#[Route('/employe/litiges')]
 final class LitigeController extends AbstractController
 {
-    #[Route('/litige', name: 'app_litige')]
-    public function index(): Response
+    #[Route('/index', name: 'app_litige')]
+    public function index(LitigeRepository $litige): Response
     {
+        $litiges = $litige->findAll();
         return $this->render('litige/index.html.twig', [
-            'controller_name' => 'LitigeController',
+            'litiges' => $litiges,
         ]);
     }
 }
