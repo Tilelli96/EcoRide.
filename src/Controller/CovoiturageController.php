@@ -134,4 +134,18 @@ final class CovoiturageController extends AbstractController
         $this->addFlash('success', 'Votre validation a bien été enregistrée');
         return $this->redirectToRoute('app_home');
     }
+
+    #[Route('/{id_C}/{id_U}/ajouter')]
+    public function add(int $id_C, int $id_U, CovoiturageRepository $co, UserRepository $us, EntityManagerInterface $em): Response
+    {
+        $covoiturage = $co->findOneById($id_C);
+        $user = $us->findOneById($id_U);
+        $litige = new Litige();
+        $litige->addCovoiturage($covoiturage);
+        $litige->addUser($user);
+        $em->persist($litige);
+        $em->flush($litige);
+        $this->addFlash('success', 'le litige a bien été enregistrer');
+        return $this->redirectToRoute('app_home');
+    } 
 }
