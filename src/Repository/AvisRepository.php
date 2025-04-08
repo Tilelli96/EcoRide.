@@ -16,22 +16,32 @@ class AvisRepository extends ServiceEntityRepository
         parent::__construct($registry, Avis::class);
     }
 
-    //    /**
-    //     * @return Avis[] Returns an array of Avis objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return Avis[] Returns an array of Avis objects
+     */
+    public function findByUser($user): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.user = :id')
+            ->andWhere('a.statut = :statut')
+            ->setParameter('id', $user)
+            ->setParameter('statut', 'validé')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
-    //    public function findOneBySomeField($value): ?Avis
+    public function findByStatut(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.statut = :statut')
+            ->setParameter('statut', 'à confirmer')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    //    public function findOneBySomeField($value): ?A
     //    {
     //        return $this->createQueryBuilder('a')
     //            ->andWhere('a.exampleField = :val')
