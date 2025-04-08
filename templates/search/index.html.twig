@@ -1,0 +1,64 @@
+{% for flash_error in app.flashes('verify_email_error') %}
+<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+{% endfor %}
+
+
+<div class="search">
+    {{ form_errors(form) }}
+    {{ form_start(form, {'method': 'get', 'attr': {'data-turbo': 'false', 'id': 'form_search'}}) }}
+    <div class="bg-light bg-opacity-50 p-5 mx-auto mb-4 rounded-5" style="max-width: 900px;">
+        <h1 class="slogan text-center fontVert">Roulez ensemble, économisez, partagez !</h1>
+        <div class="d-md-flex justify-content-around">
+            <div class="form-group m-2 col-md-5">
+                <div class="input-container" style="position: relative;">
+                    <i class="fas fa-map-marker-alt fa-2x" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: grey;"></i>
+                    {{ form_widget(form.adresse_depart, {
+                        'attr': {
+                            'placeholder': 'Départ',
+                            'style': 'padding-left: 40px; width: 100%; height: 40px; border-radius: 10px; border:none'
+                        }
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group m-2 col-md-5">
+                <div class="input-container" style="position: relative;">
+                    <i class="fas fa-map-marker-alt fa-2x" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: grey;"></i>
+                    {{ form_widget(form.adresse_arrivee, {
+                        'attr': {
+                            'placeholder': 'Arrivé',
+                            'style': 'padding-left: 40px; width: 100%; height: 40px; border-radius: 10px; border:none'
+                        }
+                    }) }}
+                </div>
+            </div>
+        </div>
+        <div class="d-md-flex justify-content-around">
+            <div class="form-group m-2 col-md-5">
+                <div class="input-container" style="position: relative;">
+                    <i class="fas fa-calendar fa-2x" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: grey;"></i>
+                    {{ form_widget(form.Date, {
+                        'attr': {
+                            'style': 'padding-left: 40px; width: 100%; height: 40px; border-radius: 10px; border:none'
+                        }
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group m-2 col-md-5">
+                <div class="input-container" style="position: relative;">
+                    <i class="fas fa-user fa-2x" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: grey;"></i>
+                    {{ form_widget(form.nb_personnes, {
+                        'attr': {
+                            'style': 'padding-left: 40px; width: 100%; height: 40px; border-radius: 10px; border:none'
+                        }
+                    }) }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <button type="submit" class="btn col-8 text-light m-3" style="border-radius: 10px;">Recherche</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+

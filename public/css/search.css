@@ -1,25 +1,26 @@
 .search {
     background-image: url('../media/img_route.jpg');
-    background-size:cover;
+    background-size:100%;
     padding: 30px;
 }
-.adresse {
-    display: flex ;
-    justify-content: space-around;
-}
 .covoiturage {
-    background-color: #CA763B;
+    background-color: rgba(202, 118, 59, 0.5);
 }
 .fontVert {
     color :#134B42 ;
 }
 .detail {
     border-radius: 40px;
+    background-color: rgb(128, 145, 125, 0.35);
 }
 .participer {
     background-color: #134B42;
     border: none;
     border-radius: 40px;
+}
+.form-check-input:checked {
+    background-color:#134B42;
+    border-color: #134B42;
 }
 @media (max-width: 990px) {
     .adresse {

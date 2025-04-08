@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CovoiturageRepository::class)]
 class Covoiturage
@@ -16,10 +17,12 @@ class Covoiturage
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['covoiturage:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\GreaterThanOrEqual('today')]
+    #[Groups(['covoiturage:read'])]
     private ?\DateTimeInterface $date_depart = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -31,9 +34,11 @@ class Covoiturage
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $heure_arrivee = null;
 
+    #[Groups(['covoiturage:read'])]
     #[ORM\Column(length: 50)]
     private ?string $lieu_depart = null;
 
+    #[Groups(['covoiturage:read'])]
     #[ORM\Column(length: 50)]
     private ?string $lieu_arrivee = null;
 
@@ -45,11 +50,13 @@ class Covoiturage
     #[Assert\LessThan(5)]
     private ?int $nb_places = null;
 
+    #[Groups(['covoiturage:read'])]
     #[ORM\Column]
     private ?float $prix_personne = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['covoiturage:read'])]
     private ?Voiture $voiture = null;
 
     /**
@@ -69,6 +76,7 @@ class Covoiturage
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['covoiturage:read'])]
     private ?User $user = null;
 
     public function __construct()

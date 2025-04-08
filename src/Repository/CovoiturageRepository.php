@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Covoiturage;
-use App\Entity\Search;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,27 +20,27 @@ class CovoiturageRepository extends ServiceEntityRepository
     /**
         * @return Covoiturage[] Returns an array of Covoiturage objects
     */     
-    public function findBySearch(Search $search){
+    public function findBySearch(array $search){
         return $this->createQueryBuilder('c')
                 ->where('c.lieu_arrivee = :arrivee')
                 ->andWhere('c.lieu_depart = :Ldepart')
                 ->andWhere('c.date_depart = :Ddepart')
                 ->andWhere('c.statut = :Statut')
-                ->setParameter('Ldepart', $search->getAdresseDepart())
-                ->setParameter('Ddepart', $search->getDate())
-                ->setParameter('arrivee', $search->getAdresseArrivee())
+                ->setParameter('Ldepart', $search['search']['adresse_depart'])
+                ->setParameter('Ddepart', $search['search']['Date'])
+                ->setParameter('arrivee', $search['search']['adresse_arrivee'])
                 ->setParameter('Statut', 'à venir')
                 ->getQuery()
                 ->getResult();
     }
 
-    public function findByOtherDate(Search $search){
+    public function findByOtherDate(array $search){
         return $this->createQueryBuilder('c')
                 ->where('c.lieu_arrivee = :arrivee')
                 ->andWhere('c.lieu_depart = :Ldepart')
                 ->andWhere('c.statut = :Statut')
-                ->setParameter('Ldepart', $search->getAdresseDepart())
-                ->setParameter('arrivee', $search->getAdresseArrivee())
+                ->setParameter('Ldepart', $search['search']['adresse_depart'])
+                ->setParameter('arrivee', $search['search']['adresse_arrivee'])
                 ->setParameter('Statut', 'à venir')
                 ->getQuery()
                 ->getResult();
