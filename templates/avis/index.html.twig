@@ -4,10 +4,14 @@
 
 {% block body %}
     <H2 class="text-light text-center m-5">Avis</H2>
-    {%for avi in avis %}
-    <div class="register m-5 p-2 detail">
+    {% if avis|length == 0 %}
+        <h5 class="text-light text-center m-3">0 avis pour cette personne</h5>
+    {% endif %}
+    <div class="d-md-flex justify-content-around">
+    {% for avi in avis %}
+    <div class="register col-md-5 m-5 p-2 detail">
         <div class="text-light m-2 ms-5">
-            <img class="rounded-circle bg-success" src="{{ path('user_photo', { id: avi.userId.id }) }}" alt="image utilisateur"  width="100" height="100">
+            <img class="rounded-circle bg-success" src="{{ path('user_photo', { id: avi.user.id }) }}" alt="image utilisateur"  width="60" height="60">
             {{avi.createdBy.getEmail()}}
         </div>
         <div class="d-flex">
@@ -22,5 +26,5 @@
         </div>
     </div>
     {% endfor %}
-    
+    </div>
 {% endblock %}

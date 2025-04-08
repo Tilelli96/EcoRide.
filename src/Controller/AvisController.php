@@ -24,4 +24,30 @@ final class AvisController extends AbstractController
             'avis' => $avis,
         ]);
     }
+
+    #[Route('/{id}/create', name: 'app_avis')]
+    public function create(Request $Request, EntityManagerInterface $em, User $user ): Response
+    {
+        $avis = new Avis();
+        $form = $this->createForm(AvisType::class, $avis);
+        $form->handleRequest($Request);
+        if($form->isSubmitted() && $form->isValid()){
+            $avis->setStatut('à confirmer');
+            $avis->setCreatedBy($this->getUser());
+            $avis->setUser($user);
+            if(empty($user->getNote())){
+                $user->setNote($avis->getNote());
+            } else {
+                $user->setNote(($avis->getNote() + $user->getNote()) / 2);
+            }
+            $em->persist($avis);
+            $em->flush($avis);
+            $this->addFlash('success', 'Votre validation a bien été enregistrée');
+            return $this->redirectToRoute('app_home');
+        }
+        
+        return $this->render('avis/create.html.twig', [
+            'form' => $form,
+        ]);
+    }
 }
