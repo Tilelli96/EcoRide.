@@ -5,8 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\ARepository;
-use App\Entity\A;
+use App\Repository\AvisRepository;
+use App\Entity\Avis;
 use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/employer')]
@@ -20,4 +20,14 @@ final class EmployerController extends AbstractController
             'user' => $user,
         ]);
     }
+
+    #[Route('/avis', name: 'employer_avis')]
+    public function avis(AvisRepository $avi): Response
+    {
+        $avis = $avi->FindByStatut();
+        return $this->render('employer/avis.html.twig', [
+            'avis' => $avis,
+        ]);
+    }
+
 }

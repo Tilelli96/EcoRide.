@@ -1,0 +1,37 @@
+{% extends "employer/index.html.twig" %}
+
+{% block title %}Avis{% endblock %}
+
+{% block body %}
+    <p class="text-light text-center">{{ avis|length }} avis trouvés.</p>
+    {% for avi in avis %}
+    <h4 class="text-center text-light">{{avi.getUser().getEmail()}}</h4>
+    <div class="register m-5 p-2 detail">
+        <div class="text-light m-2 ms-5">
+            <img class="p-3 rounded-circle bg-success opacity-50" src="/media/person.svg" alt="image utilisateur">
+            {{avi.createdBy.getEmail()}}
+        </div>
+        <div class="d-flex justify-content-around">
+            <div class="d-flex">
+                <div class="text-light m-2 ms-5">
+                    <img src="/media/star-fill.svg" alt="star avis">
+                    {{avi.note}}
+                </div> 
+                <div class="text-dark rounded opacity-50 bg-light m-2 p-2 ms-5">
+                    <p>{{avi.commentaire}}</p>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="m-2 rounded-fill">
+                    <a href="/employer/{{avi.getId()}}/valider" alt="lien pour créer un avis" class="btn participer p-2 text-light">Valider</a>
+                </div>
+                <div class="m-2 rounded-fill">
+                    <a href="/employer/{{avi.getId()}}/supprimer" alt="lien pour créer un avis" class="btn participer bg-danger p-2 text-light">Supprimer</a>
+                </div>
+            </div>
+            
+        </div>
+       
+    </div>
+    {% endfor %}
+{% endblock %}
