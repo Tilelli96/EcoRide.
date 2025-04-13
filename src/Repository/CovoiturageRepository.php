@@ -66,14 +66,24 @@ class CovoiturageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Récupère le nombre de covoiturages par jour.
+     *
+     * @return array
+     */
     public function countCovoituragesPerDay(): array
     {
-        return $this->createQueryBuilder('c')
-            ->select("YEAR(c.date_depart) as annee, MONTH(c.date_depart) as mois, DAY(c.date_depart) as jour, COUNT(c.id) as nombre_covoiturages")
-            ->groupBy('annee, mois, jour')
-            ->orderBy('annee, mois, jour', 'ASC')
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+            SELECT DATE(c.date_depart) AS jour, COUNT(c.id) AS nombre_covoiturages
+            FROM covoiturage c
+            WHERE c.statut = 'passé'
+            GROUP BY jour
+            ORDER BY jour ASC;
+        ";
+        $stmt = $conn->executeQuery($sql);
+        $results = $stmt->fetchAllAssociative();
+        return $results;
     }
 
     public function getGainsParJour()

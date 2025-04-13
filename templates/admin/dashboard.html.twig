@@ -1,0 +1,16 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block content %}
+    <h2>Statistiques d'utilisation</h2>
+    <br>
+    <div class="m-2">
+        {{ render_chart(chart) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block importmap %}
+        {{ importmap('app') }}
+    {% endblock %}
+{% endblock %}
