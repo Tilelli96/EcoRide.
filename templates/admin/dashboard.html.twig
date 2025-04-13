@@ -1,10 +1,14 @@
 {% extends '@EasyAdmin/layout.html.twig' %}
 
 {% block content %}
-    <h2>Statistiques d'utilisation</h2>
+    <h2 style="color: rgb(128, 145, 125);" class="text-center m-2">Total Des Gains : <b>{{total}}</b> Credits</h2>
+    <br>
+    <h2 class="m-2">Statistiques d'utilisation</h2>
     <br>
     <div class="m-2">
-        {{ render_chart(chart) }}
+        {{ render_chart(chartCovoiturages) }}
+        <br>
+        {{ render_chart(chartGains) }}
     </div>
 {% endblock %}
 

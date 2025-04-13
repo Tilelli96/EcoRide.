@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\CovoiturageRepository;
+use App\Entity\Covoiturage;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
@@ -22,29 +23,62 @@ class DashboardController extends AbstractDashboardController
 
     public function index(): Response
     {
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+        $chartCovoiturages = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+        $chartGains = $this->chartBuilder->createChart(Chart::TYPE_LINE);
         $covoiturages = $this->CovoiturageRepository->countCovoituragesPerDay();
+        $gains = $this->CovoiturageRepository->getGainsParJour();
+        $total = $this->CovoiturageRepository->getTotal();
 
-        $label = [];
-        $data= [];
+        $labelCovoiturages = [];
+        $dataCovoiturages= [];
+
+        $labelGains = [];
+        $dataGains= [];
 
         foreach($covoiturages as $covoiturage){
-            $label[] = $covoiturage['jour'];
-            $data[] = $covoiturage['nombre_covoiturages'];
+            $labelCovoiturages[] = $covoiturage['jour'];
+            $dataCovoiturages[] = $covoiturage['nombre_covoiturages'];
+        }
+
+        foreach($gains as $gain){
+            $labelGains[] = $gain['jour'];
+            $dataGains[] = $gain['credits_gagnes'];
         }
         
-        $chart->setData([
-            'labels' => $label,
+        $chartCovoiturages->setData([
+            'labels' => $labelCovoiturages,
             'datasets' => [
                 [
                     'label' => 'Nombre De Covoiturage Par Jour',
                     'backgroundColor' => 'rgb(128, 145, 125)',
-                    'borderColor' => 'rgb(128, 145, 125)'
+                    'borderColor' => 'rgb(128, 145, 125)',
+                    'data' => $dataCovoiturages
                 ],
             ],
         ]);
 
-        $chart->setOptions([
+        $chartGains->setData([
+            'labels' => $labelGains,
+            'datasets' => [
+                [
+                    'label' => 'Gains De La Plateforme Par Jour',
+                    'backgroundColor' => 'rgb(202, 118, 59)',
+                    'borderColor' => 'rgb(202, 118, 59)',
+                    'data' => $dataGains
+                ],
+            ],
+        ]);
+
+        $chartCovoiturages->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 100,
+                ],
+            ],
+        ]);
+
+        $chartGains->setOptions([
             'scales' => [
                 'y' => [
                     'suggestedMin' => 0,
@@ -54,7 +88,9 @@ class DashboardController extends AbstractDashboardController
         ]);
 
         return $this->render('admin/dashboard.html.twig', [
-            'chart' => $chart,
+            'chartCovoiturages' => $chartCovoiturages,
+            'chartGains' => $chartGains,
+            'total' =>$total
         ]);
     }
 
