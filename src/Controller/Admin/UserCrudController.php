@@ -3,6 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Covoiturage;
+use App\Repository\CovoiturageRepository;
+use App\Entity\Avis;
+use App\Repository\AvisRepository;
+use App\Entity\Voiture;
+use App\Repository\VoitureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -94,10 +100,40 @@ class UserCrudController extends AbstractCrudController
         if (in_array('ROLE_EMPLOYE', $roles)) {
             $entityInstance->setNote($entityInstance->getNote() ?? 0);
             $entityInstance->setCredit($entityInstance->getCredit() ?? 0);
-            $entityInstance->setDateNaissance($entityInstance->getDateNaissance() ?? new \DateTime('2000-01-01'));
         }
 
         parent::persistEntity($em, $entityInstance);
     }
+
+    public function deleteEntity(EntityManagerInterface $em, $entityInstance): void
+{
+    if (!$entityInstance instanceof User) {
+        return;
+    }
+
+    $covoituragesCrees = $em->getRepository(Covoiturage::class)->findByHistoricalUser($entityInstance);
+    foreach ($covoituragesCrees as $covoiturage) {
+        foreach ($covoiturage->getVoyageurs() as $voyageur) {
+            $covoiturage->removeVoyageur($voyageur);
+        }
+        $em->remove($covoiturage);
+    }
+
+    $avisCrees = $em->getRepository(Avis::class)->findByUser($entityInstance);
+    foreach ($avisCrees as $avis) {
+        $em->remove($avis);
+    }
+
+    $voituresCrees = $em->getRepository(Voiture::class)->findVoitureByUser($entityInstance);
+    foreach ($voituresCrees as $voiture) {
+        $em->remove($voiture);
+    }
+
+    foreach ($entityInstance->getCovoiturages() as $covoiturage) {
+        $covoiturage->removeVoyageur($entityInstance);
+    }
+
+    parent::deleteEntity($em, $entityInstance);
+}
 
 }
