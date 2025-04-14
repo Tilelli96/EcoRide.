@@ -39,6 +39,7 @@ class UserCrudController extends AbstractCrudController
             ->setAutofocusSearch()
             ->setPaginatorPageSize(10)
             ->hideNullValues()
+            ->setSearchFields(['email', 'nom', 'prenom', 'pseudo', 'roles'])
         ;
     }
 
