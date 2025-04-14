@@ -66,49 +66,59 @@ class CovoiturageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Récupère le nombre de covoiturages par jour.
+     *
+     * @return array
+     */
     public function countCovoituragesPerDay(): array
     {
-        return $this->createQueryBuilder('c')
-            ->select("YEAR(c.date_depart) as annee, MONTH(c.date_depart) as mois, DAY(c.date_depart) as jour, COUNT(c.id) as nombre_covoiturages")
-            ->groupBy('annee, mois, jour')
-            ->orderBy('annee, mois, jour', 'ASC')
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+            SELECT DATE(c.date_depart) AS jour, COUNT(c.id) AS nombre_covoiturages
+            FROM covoiturage c
+            WHERE c.statut = 'passé'
+            GROUP BY jour
+            ORDER BY jour ASC
+            LIMIT 10;
+        ";
+        $stmt = $conn->executeQuery($sql);
+        $results = $stmt->fetchAllAssociative();
+        return $results;
     }
 
+    /**
+     * Récupère le nombre de gains par jour.
+     *
+     * @return array
+     */
     public function getGainsParJour()
     {
-        return $this->createQueryBuilder('c')
-            ->select('c.date_depart AS jour, COUNT(voyageurs.id) * 2 AS credits_gagnes')
-            ->leftJoin('c.voyageurs', 'voyageurs')
-            ->groupBy('jour')
-            ->orderBy('jour', 'DESC')
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+            SELECT 
+                DATE_FORMAT(c.date_depart, '%Y-%m-%d') AS jour,
+                COUNT(voyageurs.id) * 2 AS credits_gagnes
+            FROM covoiturage c
+            LEFT JOIN covoiturage_voyageurs cv ON c.id = cv.covoiturage_id
+            LEFT JOIN user voyageurs ON cv.user_id = voyageurs.id
+            WHERE c.statut = 'passé'
+            GROUP BY jour
+            ORDER BY jour DESC
+            LIMIT 10;
+        ";
+        $stmt = $conn->executeQuery($sql);
+        $results = $stmt->fetchAllAssociative();
+        return $results;
     }
 
-    //    /**
-    //     * @return Covoiturage[] Returns an array of Covoiturage objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Covoiturage
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function getTotal(){
+        return (int) $this->createQueryBuilder('c')
+            ->select('COUNT(voyageurs.id) * 2')
+            ->leftJoin('c.voyageurs', 'voyageurs')
+            ->where('c.statut = :statut')
+            ->setParameter('statut', 'passé')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

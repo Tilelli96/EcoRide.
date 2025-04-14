@@ -28,6 +28,7 @@
                value="{{ csrf_token('authenticate') }}"
         >
         <br>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <button class="btn btn-lg m-3 text-light" type="submit">
             Connexion
         </button>
