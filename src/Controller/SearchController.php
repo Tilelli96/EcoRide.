@@ -12,6 +12,9 @@ use App\Repository\CovoiturageRepository;
 use App\Entity\Covoiturage;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Document\Preferences;
+use App\Form\PreferencesType;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
 final class SearchController extends AbstractController
 {
@@ -48,10 +51,12 @@ final class SearchController extends AbstractController
     }
 
     #[Route('result/{id}/details', name: 'app_details')]
-    public function details(Covoiturage $covoiturage){
+    public function details(Covoiturage $covoiturage, DocumentManager $dm){
         
+        $preferences = $dm->getRepository(Preferences::class)->findOneBy(['userId' => $covoiturage->getUser()->getId()]) ?? null;
         return $this->render('/covoiturage/details.html.twig', [
-            'covoiturage' => $covoiturage
+            'covoiturage' => $covoiturage,
+            'preferences' => $preferences
         ]);
     }
 }

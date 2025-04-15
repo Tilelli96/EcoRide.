@@ -18,6 +18,9 @@ nav {
 li {
     padding-inline: 30px;
 }
+li:hover {
+    background-color: inherit !important;
+}
 .navbartoggler {
     border: 0em;
 }

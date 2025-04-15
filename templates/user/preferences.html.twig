@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Preferences{% endblock %}
+
+{% block body %}
+<div class="register ms-auto me-auto rounded-5 m-5 p-2 m-5">
+   {{ form_errors(form) }}
+   {{ form_start(form) }}
+   <div>
+        <div class="m-3 text-light">
+            {{ form_widget(form.musique, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(form.musique, null, {'label_attr': {'class': 'form-check-label ms-2'}}) }}
+        </div>
+        <div class="m-3 text-light">
+            {{ form_widget(form.climatisation, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(form.climatisation, null, {'label_attr': {'class': 'form-check-label ms-2'}}) }}
+        </div>
+        <div class="m-3 text-light">
+            {{ form_widget(form.animauxAcceptes, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(form.animauxAcceptes, null, {'label_attr': {'class': 'form-check-label ms-2'}}) }}
+        </div>
+    </div>
+    <div class="m-3 text-center text-light">
+        {{ form_label(form.autresPreferences, null, {'label_attr': {'class': 'form-label text-light'}}) }}
+        {{ form_widget(form.autresPreferences, {'attr': {'class': 'form-control', 'style': 'border-radius: 1rem;'}}) }}
+    </div>
+   <div class="m-3 text-center text-light">
+       <button type="submit" class="btn text-light">Enregistrer</button>
+   </div>
+   {{ form_end(form) }}
+</div>
+{% endblock %}

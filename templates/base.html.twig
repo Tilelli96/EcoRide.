@@ -65,9 +65,30 @@
                     <p class="taxt-light text-small">{{app.user.getPseudo()}}</p>
                   </a>
                   <ul class="dropdown-menu deconnexion  register">
-                    <li><a class="dropdown-item text-light" href="{{ path('app_logout') }}">Deconnexion</a></li>
+                    <li class="dropdown-item text-light text-center"><a href="{{ path('app_logout') }}">Deconnexion</a></li>
                     <li class="dropdown-item text-center text-light">{{app.user.getCredit()}} Credits</li>
-                  </ul>
+                    <li class="dropdown-item mt-3">
+                      <li class="dropdown-item text-center text-light"><h4>Préferences</h4></li>
+                      {% if preferences is defined %}
+                          {% if preferences.musique %}
+                              <li class="dropdown-item text-center text-light">Musique autorisée</li>
+                          {% endif %}
+                          {% if preferences.climatisation %}
+                              <li class="dropdown-item text-center text-light">Climatisation activée</li>
+                          {% endif %}
+                          {% if preferences.animauxAcceptes %}
+                              <li class="dropdown-item text-center text-light">Animaux acceptés</li>
+                          {% endif %}
+
+                          {% if preferences.autresPreferences is defined %}
+                              {% for pref in preferences.autresPreferences %}
+                                  <li class="dropdown-item text-center text-light">{{ pref }}</li>
+                              {% endfor %}
+                          {% endif %}
+                      {% endif %}
+                      <li class="dropdown-item text-center text-light"><a href="{{ path('add_preferences', {Id: app.user.id}) }}">+ Ajouter des préferences</a></li>
+                    </ul>
+                  </li>
                 </div>
                 {% else %}
                   <a href="/login"><img class="icone" src="/media/person.svg" alt="icone" width="50px" height="30px"></a>
