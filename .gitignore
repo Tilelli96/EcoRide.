@@ -16,7 +16,6 @@
 /public/uploads/
 
 /composer.phar
-/composer.lock
 
 ###< symfony/framework-bundle ###
 
