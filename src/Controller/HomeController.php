@@ -19,7 +19,7 @@ final class HomeController extends AbstractController
         $user = $this->getUser();
 
         if($user){
-            $preferences = $dm->getRepository(Preferences::class)->findOneBy(['userId' => $user->getId()]);
+            $preferences = $dm->getRepository(Preferences::class)->findOneBy(['userId' => $user->getId()]) ?? null;
         }else{
             $preferences = null;
         }

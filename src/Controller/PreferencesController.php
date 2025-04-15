@@ -19,7 +19,7 @@ class PreferencesController extends AbstractController
         $form = $this->createForm(PreferencesType::class, $Preferences);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $autresPreferences = $form->get('autresPreferences')->getData();
+            $autresPreferences = $form->get('autresPreferences')->getData() ?? null;
             $Preferences->addAutrePreference($autresPreferences);
             $Preferences->setUserId($this->getUser()->getId()); 
             $dm->persist($Preferences);

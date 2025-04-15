@@ -73,8 +73,11 @@ class Preferences
         return $this->autresPreferences; 
     }
 
-    public function addAutrePreference(string $preference): void
+    public function addAutrePreference(?string $preference): void
     {
+        if($preference === null){
+            return;
+        }
         if (!in_array($preference, $this->autresPreferences)) {
             $this->autresPreferences[] = $preference;
         }
