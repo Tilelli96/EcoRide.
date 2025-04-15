@@ -16,7 +16,14 @@ final class HomeController extends AbstractController
     public function index(DocumentManager $dm): Response
     {
         $form = $this->createForm(SearchType::class);
-        $preferences = $dm->getRepository(Preferences::class)->findOneBy(['userId' => $this->getUser()->getId()]) ?? null;
+        $user = $this->getUser();
+
+        if($user){
+            $preferences = $dm->getRepository(Preferences::class)->findOneBy(['userId' => $user->getId()]);
+        }else{
+            $preferences = null;
+        }
+
         return $this->render('home/index.html.twig', [
             'form' => $form,
             'preferences' => $preferences
