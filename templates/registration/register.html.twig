@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+   
+    <div class="register ms-auto me-auto rounded-5 m-5">
+        <div class="p-2 text-center">
+            <h1>Inscription</h1>
+            <p class="text-light">Déjà membre ? <a class="text-dark" href="/login" rel="lien de connexion">Connectez-vous</a></p>
+            {{ form_errors(form) }}
+            {{ form_start(form) }}
+            <div class="d-flex justify-content-center">
+                <div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.email)}}
+                        <br>
+                        {{ form_widget(form.email)}}
+                    </div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.password)}}
+                        <br>
+                        {{form_widget(form.password)}}
+                    </div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.nom)}}
+                        <br>
+                        {{form_widget(form.nom)}}
+                    </div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.prenom)}}
+                        <br>
+                        {{ form_widget(form.prenom)}}
+                    </div>
+                    
+                </div>
+                <div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.adresse)}}
+                        <br>
+                        {{form_widget(form.adresse)}}
+                    </div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.telephone)}}
+                        <br>
+                        {{ form_widget(form.telephone)}}
+                    </div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.date_naissance)}}
+                        <br>
+                        {{form_widget(form.date_naissance)}}
+                    </div>
+                    <div class="m-3 text-light">
+                        {{form_label(form.pseudo)}}
+                        <br>
+                        {{form_widget(form.pseudo)}}
+                    </div>
+                </div>
+            </div>
+            <div class="m-3 text-light">
+                {{form_label(form.photo)}}
+                <br>
+                {{form_widget(form.photo)}}
+            </div>
+            {{ form_rest(form) }}
+            <div class="m-3 text-light">
+                <button type="submit" class="btn text-light">Inscription</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis_create{% endblock %}
+
+{% block body %}
+<div class="register rounded-4 mx-auto text-center p-2 m-5">
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    <div class="d-flex justify-content-center">
+        <div>
+            <div class="m-3 text-light">
+                {{form_label(form.commentaire)}}
+                <br>
+                {{ form_widget(form.commentaire)}}
+            </div>
+            <div class="m-3 text-light">
+                {{form_label(form.note)}}
+                <br>
+                {{form_widget(form.note)}}
+            </div>
+            <div class="m-3 text-light">
+                <button type="submit" class="btn text-light">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+ </div>
+{% endblock %}

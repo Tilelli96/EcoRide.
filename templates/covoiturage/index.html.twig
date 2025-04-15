@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Covoiturage{% endblock %}
+
+{% block body %}
+<div class="register ms-auto me-auto rounded-5 m-5 text-center p-2 m-5">
+    <h1 class="text-light">Covoiturage</h1>
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    <div class="d-flex justify-content-center">
+        <div>
+            <div class="m-3 text-light">
+                {{form_label(form.date_depart)}}
+                <br>
+                {{ form_widget(form.date_depart)}}
+            </div>
+            <div class="m-3 text-light">
+                {{form_label(form.heure_depart)}}
+                <br>
+                {{form_widget(form.heure_depart)}}
+            </div>
+            <div class="m-3 text-light">
+                {{form_label(form.date_arrivee)}}
+                <br>
+                {{form_widget(form.date_arrivee)}}
+            </div>
+            <div class="m-3 text-light">
+                {{form_label(form.heure_arrivee)}}
+                <br>
+                {{ form_widget(form.heure_arrivee)}}
+            </div>
+        </div>
+        <div>
+             <div class="m-3 text-light">
+                  {{form_label(form.lieu_depart)}}
+                  <br>
+                  {{form_widget(form.lieu_depart)}}
+              </div>
+            <div class="m-3 text-light">
+                {{form_label(form.lieu_arrivee)}}
+                <br>
+                {{ form_widget(form.lieu_arrivee)}}
+            </div>
+            <div class="m-3 text-light">
+                {{form_label(form.nb_places)}}
+                <br>
+                {{form_widget(form.nb_places)}}
+            </div>
+            <div class="m-3 text-light">
+                {{form_label(form.prix_personne)}}
+                <br>
+                {{ form_widget(form.prix_personne)}}
+            </div>
+        </div>
+    </div>
+    
+    <div class="m-3 text-light">
+        {{form_label(form.voiture)}}
+        <br>
+        {{ form_widget(form.voiture)}}
+        <br>
+        <a class="text-light ms-2 text-small" href="/voiture/create">+Nouvelle voiture</a>
+    </div>
+    <br>
+    <div class="m-3 text-light">
+        <button type="submit" class="btn text-light">Enregistrer</button>
+    </div>
+    {{ form_end(form) }}
+ </div>
+{% endblock %}
