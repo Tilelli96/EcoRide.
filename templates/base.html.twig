@@ -69,7 +69,8 @@
                     <li class="dropdown-item text-center text-light">{{app.user.getCredit()}} Credits</li>
                     <li class="dropdown-item mt-3">
                       <li class="dropdown-item text-center text-light"><h4>Préferences</h4></li>
-                      {% if preferences is defined %}
+                      {% set preferences = preferences|default(null) %}
+                      {% if preferences is not null and preferences is defined %}
                           {% if preferences.musique %}
                               <li class="dropdown-item text-center text-light">Musique autorisée</li>
                           {% endif %}
@@ -85,6 +86,8 @@
                                   <li class="dropdown-item text-center text-light">{{ pref }}</li>
                               {% endfor %}
                           {% endif %}
+                      {% else %}
+                          <p class="text-center text-light">Aucune préférence</p>
                       {% endif %}
                       <li class="dropdown-item text-center text-light"><a href="{{ path('add_preferences', {Id: app.user.id}) }}">+ Ajouter des préferences</a></li>
                     </ul>
