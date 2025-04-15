@@ -65,8 +65,12 @@
                     <p class="taxt-light text-small">{{app.user.getPseudo()}}</p>
                   </a>
                   <ul class="dropdown-menu deconnexion  register">
-                    <li><a class="dropdown-item text-light" href="{{ path('app_logout') }}">Deconnexion</a></li>
+                    <li class="dropdown-item text-light text-center"><a href="{{ path('app_logout') }}">Deconnexion</a></li>
                     <li class="dropdown-item text-center text-light">{{app.user.getCredit()}} Credits</li>
+                    <li class="dropdown-item text-center text-light mt-3">
+                      <h4>Préferences</h4>
+                      <a href="{{ path('add_preferences', {Id: app.user.id}) }}">+ Ajouter des préferences</a>
+                    </li>
                   </ul>
                 </div>
                 {% else %}
