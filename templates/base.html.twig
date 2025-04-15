@@ -69,7 +69,7 @@
                     <li class="dropdown-item text-center text-light">{{app.user.getCredit()}} Credits</li>
                     <li class="dropdown-item mt-3">
                       <li class="dropdown-item text-center text-light"><h4>Préferences</h4></li>
-                      {% if preferences %}
+                      {% if preferences is defined %}
                           {% if preferences.musique %}
                               <li class="dropdown-item text-center text-light">Musique autorisée</li>
                           {% endif %}

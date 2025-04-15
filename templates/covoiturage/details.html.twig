@@ -66,6 +66,28 @@
             </div>
         </div>
     </div>
+    <div class="m-5 p-3 detail d-md-flex">
+        <div class="col-md-2"><h4 class="text-light m-3">Preferences :</h4></div>
+        <div>
+        {% if preferences is defined %}
+            {% if preferences.musique %}
+                <p class="text-light m-3">Musique autorisée</p>
+            {% endif %}
+            {% if preferences.climatisation %}
+                <p class="text-light m-3">Climatisation activée</p>
+            {% endif %}
+            {% if preferences.animauxAcceptes %}
+                <p class="text-light m-3">Animaux acceptés</p>
+            {% endif %}
+
+            {% if preferences.autresPreferences is defined %}
+                {% for pref in preferences.autresPreferences %}
+                    <p class="text-light m-3">{{ pref }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
     <div class="m-5 d-md-flex text-center detail">
         <h4 class="text-light m-3">Participants</h4>
         {% for covoit in covoiturage.getVoyageurs() %}
