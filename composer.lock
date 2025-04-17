@@ -1,11 +1,10 @@
 {
-    
     "_readme": [
         "This file locks the dependencies of your project to a known state",
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "806ef11df8a7b6f31d54705371d637b9",
+    "content-hash": "48aaa850a01ea4b69001950c1dc93395",
     "packages": [
         {
             "name": "composer/semver",
@@ -10932,5 +10931,8 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "8.2"
+    },
     "plugin-api-version": "2.6.0"
 }
