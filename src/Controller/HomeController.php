@@ -2,13 +2,9 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use App\Form\SearchType;
-use App\Document\Preferences;
-use App\Form\PreferencesType;
-use Doctrine\ODM\MongoDB\DocumentManager;
+
 
 final class HomeController extends AbstractController
 {
@@ -16,10 +12,5 @@ final class HomeController extends AbstractController
     public function index(DocumentManager $dm): Response
     {
         return $this->render('home/index.html.twig');
-    }
-    #[Route('/mentionsLegales')]
-    public function mentionsLegales(): Response
-    {
-        return $this->render('home/mentionsLegales.html.twig');
     }
 }
