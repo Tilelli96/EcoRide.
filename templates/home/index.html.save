@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    {% include "search/index.html.twig" %}
+    
+    <div id="content">
+        {% include "home/presentation.html.twig" %}
+        <div class="m-5 text-light">
+            <hr>
+        </div>
+        {% include "home/articles.html.twig" %}
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
