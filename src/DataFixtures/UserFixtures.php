@@ -12,7 +12,7 @@ class UserFixtures extends Fixture
     {
         for ($i = 1; $i <= 5; $i++) {
             $user = new User();
-            $user->setEmail("user$i@example.com");
+            $user->setEmail("user$i@ecoride.com");
             $user->setNom("Nom$i");
             $user->setPrenom("Prenom$i");
             $user->setTelephone("060000000$i");
@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
 
         for ($i = 1; $i <= 3; $i++) {
             $employe = new User();
-            $employe->setEmail("employe$i@example.com");
+            $employe->setEmail("employe$i@ecoride.com");
             $employe->setNom("Nom$i");
             $employe->setPrenom("Prenom$i");
             $employe->setTelephone("060000000$i");
@@ -48,6 +48,29 @@ class UserFixtures extends Fixture
             $employe->setPassword("password+$i+employe");
 
             $manager->persist($employe);
+        }
+
+        $adminEmail = 'admin@ecoride.com';
+        $existingAdmin = $manager->getRepository(User::class)->findOneBy(['email' => $adminEmail]);
+
+        if (!$existingAdmin) {
+            $admin = new User();
+            $admin->setEmail($adminEmail);
+            $admin->setNom("Admin");
+            $admin->setPrenom("Admin");
+            $admin->setTelephone("0606060606");
+            $admin->setAdresse("1 Rue des Admins");
+            $admin->setDateNaissance(new \DateTime('1980-01-01'));
+            $admin->setPseudo("admin");
+            $admin->setNote(0);
+            $admin->setCredit(0);
+            $admin->setRoles(['ROLE_ADMIN']);
+            $admin->setIsVerified(true);
+
+            // Mot de passe provisoire pour test
+            $admin->setPassword("adminpass");
+
+            $manager->persist($admin);
         }
 
         $manager->flush();
