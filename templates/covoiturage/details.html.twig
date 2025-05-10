@@ -69,7 +69,7 @@
     <div class="m-5 p-3 detail d-md-flex">
         <div class="col-md-2"><h4 class="text-light m-3">Preferences :</h4></div>
         <div>
-        {% if preferences is defined %}
+        {% if preferences is defined and preferences is not null %}
             {% if preferences.musique %}
                 <p class="text-light m-3">Musique autorisée</p>
             {% endif %}
