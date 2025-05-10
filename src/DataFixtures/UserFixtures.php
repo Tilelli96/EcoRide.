@@ -5,9 +5,16 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
     public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 5; $i++) {
@@ -24,8 +31,9 @@ class UserFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
             $user->setIsVerified(true);
 
-            // Mot de passe non hashé pour test (à ne pas faire pour un vrai utilisateur)
-            $user->setPassword("password$i");
+            // Mot de passe crypté
+            $hashedPassword = $this->hasher->hashPassword($user, 'user');
+            $user->setPassword($hashedPassword);
 
             $manager->persist($user);
         }
@@ -44,8 +52,9 @@ class UserFixtures extends Fixture
             $employe->setRoles(['ROLE_EMPLOYE']);
             $employe->setIsVerified(true);
 
-            // Mot de passe non hashé pour test (à ne pas faire pour un vrai utilisateur)
-            $employe->setPassword("password+$i+employe");
+            // Mot de passe crypté
+            $hashedPassword = $this->hasher->hashPassword($employe, 'employe');
+            $employe->setPassword($hashedPassword);
 
             $manager->persist($employe);
         }
@@ -67,8 +76,8 @@ class UserFixtures extends Fixture
             $admin->setRoles(['ROLE_ADMIN']);
             $admin->setIsVerified(true);
 
-            // Mot de passe provisoire pour test
-            $admin->setPassword("adminpass");
+            $hashedPassword = $this->hasher->hashPassword($admin, 'admin');
+            $admin->setPassword($hashedPassword);
 
             $manager->persist($admin);
         }
