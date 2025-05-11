@@ -7,8 +7,11 @@ RUN apt-get update && apt-get install -y \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     && a2enmod rewrite
 
-# Configuration Apache
-COPY ./apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+# Changer le DocumentRoot vers /var/www/html/public
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+
+# Appliquer ce changement au fichier de conf Apache par défaut
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
 
 # copier le projet dans /var/www/html
 WORKDIR /var/www/html
