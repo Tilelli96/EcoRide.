@@ -40,6 +40,7 @@ class PreferencesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Preferences::class,
+            'csrf_protection' => true
         ]);
     }
 }

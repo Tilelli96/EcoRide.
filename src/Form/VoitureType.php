@@ -40,6 +40,7 @@ class VoitureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Voiture::class,
+            'csrf_protection' => true
         ]);
     }
 }

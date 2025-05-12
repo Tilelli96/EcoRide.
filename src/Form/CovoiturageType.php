@@ -53,7 +53,8 @@ class CovoiturageType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Covoiturage::class,
-            'voitures' => null
+            'voitures' => null,
+            'csrf_protection' => true
         ]);
     }
 }
